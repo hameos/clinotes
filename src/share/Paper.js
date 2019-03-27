@@ -3,7 +3,6 @@ import React from 'react'
 export default class Paper extends React.Component {
   state = {
     disabled:true,
-    txtstyle:'paper-textarea-disable'
   }
 
   onChangeHandler = (e) => {
@@ -24,7 +23,6 @@ export default class Paper extends React.Component {
         <section className={borderStylename}>
           <textarea  disabled={this.state.disabled}
             type="text"
-            className="form-control"
             value={this.props.value}
             placeholder='Select a note'
             onChange={this.onChangeHandler} />

@@ -61,7 +61,7 @@ export default class Title extends Component {
     return (
       <div className='title'>
         {
-          !this.state.editing ? <span className='title-value'>{this.state.title}</span> : ''
+          !this.state.editing ? <div className='title-value'>{this.state.title}</div> : ''
         }
         {
           this.state.editing ?
@@ -71,7 +71,6 @@ export default class Title extends Component {
             <img src={`http://${ip}:${port}/assets/cancel.png`} onClick={this.cancelClickHandler}/>
           </div> : ''
         }
-        <br/>
         {
           this.state.isEditable ?
           <div className='title-edit'>

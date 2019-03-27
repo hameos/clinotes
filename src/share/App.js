@@ -54,6 +54,22 @@ export default class App extends React.Component {
     })
   }
 
+  onUpdateNote = (value) => {
+    const options = {
+      method:'PUT',
+      headers:{
+        'Content-type':'application/json'
+      },
+      body: JSON.stringify({title:value.title, content:value.content})
+    }
+
+    fetch(`http://${HOST_IP}:${HOST_PORT}/notes/${value.id}`, options)
+    .then(response => response.json())
+    .then(data => {
+      this.updateList()
+    })
+  }
+
 	componentDidMount() {
 		this.updateList()
 	}
@@ -71,7 +87,8 @@ export default class App extends React.Component {
 					<AddNote onAdd={this.onAddHandler} />
           <ListNote
             list={this.state.list}
-            onRemove={this.onRemoveNote}/>
+            onRemove={this.onRemoveNote}
+            onUpdate={this.onUpdateNote}/>
 				</div>
 
 				<footer className='footer'><span>Powered by @Ibra</span></footer>

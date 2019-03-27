@@ -1,7 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 
-console.log(__dirname)
 const config = {
   entry: [
     './src/index.js',
@@ -14,10 +13,10 @@ const config = {
   },
 
   output: {
-    path: path.resolve(__dirname + /../, 'public'),
+    path: path.resolve(__dirname + '/../', 'public'),
     filename: '[name].js',
     sourceMapFilename: '[name].js.map',
-    publicPath: '127.0.0.1:80/'
+    publicPath: '127.0.0.1:80'
   },
 
   plugins: [
@@ -30,11 +29,7 @@ const config = {
   ],
 
   devtool: 'source-map',
-  
 
-  //resolve: {
-  //  extensions: ['.js', '.jsx']
-  //},
 }
 
 module.exports = config

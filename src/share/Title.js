@@ -4,36 +4,44 @@ export default class Title extends Component {
   state = {
     isEditable:false,
     editing:false,
-    value:''
+    title:'',
+    tmpValue:''
   }
 
   constructor(props) {
     super(props)
 
-    this.inputRef = React.createRef()
-    this.state.value = this.props.value
+    this.state.title = this.props.value
   }
 
   editClickHandler = (e) => {
-    this.setState({isEditable:false, editing:true})
+    this.setState({isEditable:false, editing:true, tmpValue:this.state.title})
     this.props.onEdit()
   }
 
   okClickHandler = (e) => {
+    e.stopPropagation()
+
     const label = this.props.label
-    const value = this.inputRef.current.value
-    this.setState({isEditable:true, editing:false, value})
+    const value = this.state.tmpValue
+    this.setState({isEditable:true, editing:false, title:value, tmpValue:''})
 
     this.props.onOk && this.props.onOk({[label]:value})
   }
 
   cancelClickHandler = (e) => {
-    this.setState({isEditable:true, editing:false})
+    e.stopPropagation()
+
+    this.setState({isEditable:true, editing:false, tmpValue:''})
     this.props.onCancel()
   }
 
   removeClickHandler = (e) => {
     this.props.onRemove(this.props.id)
+  }
+
+  onChangeHandler = (e) => {
+    this.setState({tmpValue: e.currentTarget.value})
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -53,12 +61,12 @@ export default class Title extends Component {
     return (
       <div className='title'>
         {
-          !this.state.editing ? <span className='title-value'>{this.state.value}</span> : ''
+          !this.state.editing ? <span className='title-value'>{this.state.title}</span> : ''
         }
         {
           this.state.editing ?
           <div className='title-input'>
-            <textarea ref={this.inputRef} placeholder='enter a title'/>
+            <textarea placeholder='enter a title' value={this.state.tmpValue} onChange={this.onChangeHandler}/>
             <img src={`http://${ip}:${port}/assets/ok.png`} onClick={this.okClickHandler} />
             <img src={`http://${ip}:${port}/assets/cancel.png`} onClick={this.cancelClickHandler}/>
           </div> : ''

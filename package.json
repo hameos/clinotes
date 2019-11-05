@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "export NODE_ENV=development && cp -r assets public/ && webpack",
+    "prod": "export NODE_ENV=production && cp -r assets public/ && webpack --config webpack.config.prod.js",
     "build-babel": "babel src --out-dir lib --extensions '.ts,.tsx'",
     "tsc": "tsc",
     "check": "eslint --ignore-path .gitignore --ext .ts,.tsx ./src/**",

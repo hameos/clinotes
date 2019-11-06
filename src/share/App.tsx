@@ -10,12 +10,14 @@ const { IP: HOST_IP, PORT: HOST_PORT } = notesConfig
 
 const App: React.FC<{}> = () => {
   const [list, setList] = React.useState([])
+  const [alreadyAdded, setAlreadyAdded] = React.useState(false)
 
-  const updateList = () => {
+  const updateList = (isAdded: boolean) => {
     return fetch(`http://${HOST_IP}:${HOST_PORT}/notes`)
       .then(response => response.json())
       .then(value => {
         setList(value.data ? value.data : [])
+        setAlreadyAdded(isAdded)
       })
   }
 
@@ -31,7 +33,8 @@ const App: React.FC<{}> = () => {
     fetch(`http://${HOST_IP}:${HOST_PORT}/notes`, options)
       .then(response => response.json())
       .then(() => {
-        updateList()
+        console.log('onAddHandler 1')
+        return updateList(!alreadyAdded)
       })
   }
 
@@ -46,7 +49,7 @@ const App: React.FC<{}> = () => {
     fetch(`http://${HOST_IP}:${HOST_PORT}/notes/${id}`, options)
       .then(response => response.json())
       .then(() => {
-        updateList()
+        return updateList(alreadyAdded)
       })
   }
 
@@ -62,12 +65,12 @@ const App: React.FC<{}> = () => {
     fetch(`http://${HOST_IP}:${HOST_PORT}/notes/${value.id}`, options)
       .then(response => response.json())
       .then(() => {
-        updateList()
+        return updateList(alreadyAdded)
       })
   }
 
   useEffect(() => {
-    updateList()
+    updateList(alreadyAdded)
   }, [])
 
   return (
@@ -82,6 +85,7 @@ const App: React.FC<{}> = () => {
         <AddNote onAdd={onAddHandler} />
         <ListNote
           list={list}
+          isAlreadyAdded={alreadyAdded}
           onRemove={onRemoveNote}
           onUpdate={onUpdateNote} />
       </div>

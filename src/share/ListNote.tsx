@@ -5,6 +5,7 @@ import Title from './Title'
 interface Props {
   onUpdate: Function
   onRemove: Function
+  isAlreadyAdded: boolean
   list: Array<{
     id: string,
     title: string,
@@ -40,16 +41,6 @@ const ListNote: React.FC<Props> = (props) => {
     props.onRemove(id)
   }
 
-  const onClickItem = (e: React.MouseEvent<HTMLElement>) => {
-    const _id = e.currentTarget.id
-    const isDiff = _id !== currentID
-
-    if (isDiff) {
-      deselectElement(currentID)
-      selectElement(_id, e.currentTarget)
-    }
-  }
-
   const selectElement = (_id: string, comp?: HTMLElement | null) => {
     const elem = props.list.find(({ id }: { id: string }) => id === _id)
     if (elem) {
@@ -71,6 +62,16 @@ const ListNote: React.FC<Props> = (props) => {
         comp = document.getElementById(elem.id)
       }
       comp && (comp.style.backgroundColor = '')
+    }
+  }
+
+  const onClickItem = (e: React.MouseEvent<HTMLElement>) => {
+    const _id = e.currentTarget.id
+    const isDiff = _id !== currentID
+
+    if (isDiff) {
+      deselectElement(currentID)
+      selectElement(_id, e.currentTarget)
     }
   }
 
@@ -118,11 +119,11 @@ const ListNote: React.FC<Props> = (props) => {
   useEffect(() => {
     if (props.list.length > 0) {
       scrollToBottom()
-      let lastElem = props.list[props.list.length -1]
+      const lastElem = props.list[props.list.length - 1]
       deselectElement(currentID)
       selectElement(lastElem.id)
     }
-  }, [props.list])
+  }, [props.isAlreadyAdded])
 
   return (
     <section className='listnote'>

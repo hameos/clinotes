@@ -1,8 +1,3 @@
-export interface NotesConfig {
-  ip: string
-  port: string
-}
-
 export interface Note {
   id: string
   title: string

@@ -1,4 +1,5 @@
 const path = require('path')
+const conf = require('./clinotes.config')
 
 const config = {
   entry: ['./src/index.tsx'],
@@ -8,10 +9,10 @@ const config = {
   },
 
   output: {
-    path: path.resolve(__dirname, 'public'), //path.resolve(__dirname + '/../', 'public'),
+    path: path.resolve(__dirname, 'public'),
     filename: '[name].js',
     sourceMapFilename: '[name].js.map',
-    publicPath: '127.0.0.1:8080',
+    publicPath: `${conf.ip}:${conf.port}`,
   },
 
   resolve: { extensions: ['.js', '.jsx', '.tsx', '.ts', '.json'] },

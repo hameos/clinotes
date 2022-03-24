@@ -1,21 +1,17 @@
 import React, { useEffect } from 'react'
-import * as notesConfig from '../config'
+import { SERVER } from '../config'
 import { Note, NoteInput } from '../declarations'
 import AddNote from './AddNote'
 import ListNote from './ListNote'
-
-
-
-const { IP: HOST_IP, PORT: HOST_PORT } = notesConfig
 
 const App: React.FC<{}> = () => {
   const [list, setList] = React.useState([])
   const [alreadyAdded, setAlreadyAdded] = React.useState(false)
 
   const updateList = (isAdded: boolean) => {
-    return fetch(`http://${HOST_IP}:${HOST_PORT}/notes`)
-      .then(response => response.json())
-      .then(value => {
+    return fetch(`${SERVER}/notes`)
+      .then((response) => response.json())
+      .then((value) => {
         setList(value.data ? value.data : [])
         setAlreadyAdded(isAdded)
       })
@@ -23,15 +19,15 @@ const App: React.FC<{}> = () => {
 
   const onAddHandler = (data: NoteInput) => {
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "content-type": "application/json"
+        'content-type': 'application/json',
       },
       body: JSON.stringify(data)
     }
 
-    fetch(`http://${HOST_IP}:${HOST_PORT}/notes`, options)
-      .then(response => response.json())
+    fetch(`${SERVER}/notes`, options)
+      .then((response) => response.json())
       .then(() => {
         console.log('onAddHandler 1')
         return updateList(!alreadyAdded)
@@ -46,8 +42,8 @@ const App: React.FC<{}> = () => {
       }
     }
 
-    fetch(`http://${HOST_IP}:${HOST_PORT}/notes/${id}`, options)
-      .then(response => response.json())
+    fetch(`${SERVER}/notes/${id}`, options)
+      .then((response) => response.json())
       .then(() => {
         return updateList(alreadyAdded)
       })
@@ -62,7 +58,7 @@ const App: React.FC<{}> = () => {
       body: JSON.stringify({ title: value.title, content: value.content })
     }
 
-    fetch(`http://${HOST_IP}:${HOST_PORT}/notes/${value.id}`, options)
+    fetch(`${SERVER}/notes/${value.id}`, options)
       .then(response => response.json())
       .then(() => {
         return updateList(alreadyAdded)

@@ -4,4 +4,4 @@ export interface Note {
   content: string
 }
 
-export interface NoteInput extends Pick<Note, Exclude<keyof Note, 'id'>>{}
+export interface NoteInput extends Pick<Note, Exclude<keyof Note, 'id'>> {}

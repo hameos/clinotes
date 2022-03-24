@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import * as notesConfig from '../config'
 
 interface Props {
   label: string
@@ -20,9 +19,6 @@ const Title: React.FC<Props> = (props) => {
   const [editing, setEditing] = React.useState(false)
   const [title, setTitle] = React.useState(props.value)
   const [tmpValue, setTmpValue] = React.useState('')
-
-  const ip = notesConfig.IP
-  const port = notesConfig.PORT
 
   const editClickHandler = () => {
     setIsEditable(false)
@@ -68,47 +64,29 @@ const Title: React.FC<Props> = (props) => {
   }, [props.isEditable])
 
   useEffect(() => {
-    if (!props.selected && editing)
-      setEditing(false)
+    if (!props.selected && editing) setEditing(false)
   }, [props.selected])
 
   return (
-    <div className='title'>
-      {!editing ? (
-        <div className='title-value'>{title}</div>
-      ) : (
-          ''
-        )}
+    <div className="title">
+      {!editing ? <div className="title-value">{title}</div> : ''}
       {editing ? (
-        <div className='title-input'>
-          <textarea
-            placeholder='enter a title'
-            value={tmpValue}
-            onChange={onChangeHandler}
-          />
-          <img
-            src={`http://${ip}:${port}/assets/ok.png`}
-            onClick={okClickHandler}
-          />
-          <img
-            src={`http://${ip}:${port}/assets/cancel.png`}
-            onClick={cancelClickHandler}
-          />
+        <div className="title-input">
+          <textarea placeholder="enter a title" value={tmpValue} onChange={onChangeHandler} />
+          <img src="/assets/ok.png" onClick={okClickHandler} />
+          <img src="/assets/cancel.png" onClick={cancelClickHandler} />
         </div>
       ) : (
-          ''
-        )}
+        ''
+      )}
       {isEditable ? (
-        <div className='title-edit'>
+        <div className="title-edit">
           <span onClick={editClickHandler}>edit</span>
-          <img
-            src={`http://${ip}:${port}/assets/trash.png`}
-            onClick={removeClickHandler}
-          />
+          <img src="/assets/trash.png" onClick={removeClickHandler} />
         </div>
       ) : (
-          ''
-        )}
+        ''
+      )}
     </div>
   )
 }

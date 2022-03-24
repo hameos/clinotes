@@ -1,18 +1,21 @@
 {
+  "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "react"],
+  "plugins": ["react", "prettier", "@typescript-eslint"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "prettier"
   ],
   "rules": {
-    "@typescript-eslint/member-delimiter-style": "off",
     "@typescript-eslint/no-unused-vars": ["error", "all"],
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/member-delimiter-style": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-empty-interface": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "prettier/prettier": 2
   },
   "settings": {
     "react": {

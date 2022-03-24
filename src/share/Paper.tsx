@@ -17,18 +17,11 @@ const Paper: React.FC<Props> = (props) => {
     setDisabled(props.disabled)
   }, [props.disabled])
 
-  const borderStylename = !disabled
-    ? 'paper paper-enable'
-    : 'paper'
+  const borderStylename = !disabled ? 'paper paper-enable' : 'paper'
   return (
-    <div className='paper-parent'>
+    <div className="paper-parent">
       <section className={borderStylename}>
-        <textarea
-          disabled={disabled}
-          value={props.value}
-          placeholder='Select a note'
-          onChange={onChangeHandler}
-        />
+        <textarea disabled={disabled} value={props.value} placeholder="Select a note" onChange={onChangeHandler} />
       </section>
     </div>
   )

@@ -1,5 +1,8 @@
 const path = require('path')
-const conf = require('./clinotes.config')
+const dotenv = require('dotenv')
+const webpack = require('webpack')
+
+dotenv.config()
 
 const config = {
   entry: ['./src/index.tsx'],
@@ -7,16 +10,25 @@ const config = {
   module: {
     rules: [{ test: /\.(js|jsx|ts|tsx)$/, use: 'babel-loader' }],
   },
-
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: '[name].js',
     sourceMapFilename: '[name].js.map',
-    publicPath: `${conf.ip}:${conf.port}`,
+    publicPath: `/`,
   },
-
-  resolve: { extensions: ['.js', '.jsx', '.tsx', '.ts', '.json'] },
-
+  plugins: [
+    new webpack.DefinePlugin({
+      "process.env.SERVER": JSON.stringify(process.env.SERVER)
+    })
+  ],
+  resolve: { 
+    extensions: ['.js', '.jsx', '.tsx', '.ts'],
+    fallback: { 
+      'fs': false,
+      'os': false,
+      'path': false
+    },
+  },
   devtool: 'source-map',
 }
 

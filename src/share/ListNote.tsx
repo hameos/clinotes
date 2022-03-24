@@ -7,8 +7,8 @@ interface Props {
   onRemove: Function
   isAlreadyAdded: boolean
   list: Array<{
-    id: string,
-    title: string,
+    id: string
+    title: string
     content: string
   }>
 }
@@ -17,7 +17,7 @@ const ListNote: React.FC<Props> = (props) => {
   const [content, setContent] = React.useState('')
   const [txtDisabled, setTxtDisabled] = React.useState(true)
   const [currentID, setCurrentID] = React.useState('')
-  const listNoteElem = React.useRef<HTMLDivElement>(null);
+  const listNoteElem = React.useRef<HTMLDivElement>(null)
 
   const onEditTitle = () => {
     setTxtDisabled(false)
@@ -83,11 +83,11 @@ const ListNote: React.FC<Props> = (props) => {
     if (props.list.length) {
       return (
         <ul>
-          {props.list.map(elem => (
+          {props.list.map((elem) => (
             <li key={elem.id} id={elem.id} onClick={onClickItem}>
               <Title
-                label='title'
-                title='AAA'
+                label="title"
+                title="AAA"
                 onOk={onOkTitle}
                 onCancel={onCancelTitle}
                 onEdit={onEditTitle}
@@ -112,8 +112,7 @@ const ListNote: React.FC<Props> = (props) => {
   }
 
   const scrollToBottom = () => {
-    if (listNoteElem.current)
-      listNoteElem.current.scrollTop = listNoteElem.current.scrollHeight
+    if (listNoteElem.current) listNoteElem.current.scrollTop = listNoteElem.current.scrollHeight
   }
 
   useEffect(() => {
@@ -126,14 +125,12 @@ const ListNote: React.FC<Props> = (props) => {
   }, [props.isAlreadyAdded])
 
   return (
-    <section className='listnote'>
-      <aside className='listnote-left' ref={listNoteElem}>{getItems()}</aside>
-      <aside className='listnote-right'>
-        <Paper
-          value={content}
-          disabled={txtDisabled}
-          onChange={onPaperChange}
-        />
+    <section className="listnote">
+      <aside className="listnote-left" ref={listNoteElem}>
+        {getItems()}
+      </aside>
+      <aside className="listnote-right">
+        <Paper value={content} disabled={txtDisabled} onChange={onPaperChange} />
       </aside>
     </section>
   )
